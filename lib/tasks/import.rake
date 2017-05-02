@@ -8,7 +8,6 @@ task :import => [:environment] do
   @count = 1
 
   merchants = (CSV.open'db/csv/merchants.csv', headers: true, header_converters: :symbol)
-
   merchants.each do |merchant|
     @count += 1
     Merchant.create!(name: merchant[:name],
