@@ -43,6 +43,7 @@ describe "Merchant API" do
    expect(parsed_merchant["id"]).to eq(merchant.id)
    expect(parsed_merchant["name"]).to eq(merchant.name)
    expect(parsed_merchant).to_not have_key("created_at")
+   expect(parsed_merchant).to_not have_key("updated_at")
   end
 
   it "finds merchant by name" do
@@ -56,7 +57,34 @@ describe "Merchant API" do
    expect(parsed_merchant["id"]).to eq(merchant.id)
    expect(parsed_merchant["name"]).to eq(merchant.name)
    expect(parsed_merchant).to_not have_key("created_at")
+   expect(parsed_merchant).to_not have_key("updated_at")
   end
 
+  it "finds merchant by created_at" do
+   merchant = create(:merchant)
 
+   get "/api/v1/merchants/find?created_at=#{merchant.created_at}"
+
+  parsed_merchant = JSON.parse(response.body)
+
+   expect(response).to be_success
+   expect(parsed_merchant["id"]).to eq(merchant.id)
+   expect(parsed_merchant["name"]).to eq(merchant.name)
+   expect(parsed_merchant).to_not have_key("created_at")
+   expect(parsed_merchant).to_not have_key("updated_at")
+  end
+
+  it "finds merchant by updated_at" do
+   merchant = create(:merchant)
+
+   get "/api/v1/merchants/find?updated_at=#{merchant.updated_at}"
+
+  parsed_merchant = JSON.parse(response.body)
+  
+   expect(response).to be_success
+   expect(parsed_merchant["id"]).to eq(merchant.id)
+   expect(parsed_merchant["name"]).to eq(merchant.name)
+   expect(parsed_merchant).to_not have_key("created_at")
+   expect(parsed_merchant).to_not have_key("updated_at")
+  end
 end
