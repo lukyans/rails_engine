@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170502215515) do
+ActiveRecord::Schema.define(version: 20170502215735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20170502215515) do
     t.integer  "unit_price"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "merchant_id"
+    t.index ["merchant_id"], name: "index_items_on_merchant_id", using: :btree
   end
 
   create_table "merchants", force: :cascade do |t|
@@ -29,4 +31,5 @@ ActiveRecord::Schema.define(version: 20170502215515) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "items", "merchants"
 end
