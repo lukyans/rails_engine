@@ -20,4 +20,15 @@ describe "Merchant API" do
     expect(merchants[2]["id"]).to eq(merchant3.id)
     expect(merchants[2]["name"]).to eq(merchant3.name)  
   end  
+
+  it "can get one merchant by its id" do
+      id = create(:merchant).id
+
+      get "/api/v1/merchants/#{id}"
+
+      merchant = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(merchant["id"]).to eq(id)
+  end
 end
