@@ -31,4 +31,32 @@ describe "Merchant API" do
       expect(response).to be_success
       expect(merchant["id"]).to eq(id)
   end
+
+  it "finds merchant by id" do
+   merchant = create(:merchant)
+
+   get "/api/v1/merchants/find?id=#{merchant.id}"
+
+  parsed_merchant = JSON.parse(response.body)
+
+   expect(response).to be_success
+   expect(parsed_merchant["id"]).to eq(merchant.id)
+   expect(parsed_merchant["name"]).to eq(merchant.name)
+   expect(parsed_merchant).to_not have_key("created_at")
+  end
+
+  it "finds merchant by name" do
+   merchant = create(:merchant)
+
+   get "/api/v1/merchants/find?name=#{merchant.name}"
+
+  parsed_merchant = JSON.parse(response.body)
+
+   expect(response).to be_success
+   expect(parsed_merchant["id"]).to eq(merchant.id)
+   expect(parsed_merchant["name"]).to eq(merchant.name)
+   expect(parsed_merchant).to_not have_key("created_at")
+  end
+
+
 end
