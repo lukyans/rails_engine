@@ -17,13 +17,13 @@ describe "Item API" do
     expect(items[0]["id"]).to eq(item1.id)
     expect(items[0]["name"]).to eq(item1.name)
     expect(items[0]["description"]).to eq(item1.description)
-    expect(items[0]["unit_price"]).to eq(item1.unit_price)
+    expect(items[0]["unit_price"]).to eq(sprintf "%.2f", (item1.unit_price.to_f/100))
     expect(items[0]["merchant_id"]).to eq(item1.merchant_id)
 
     expect(items[1]["id"]).to eq(item2.id)
     expect(items[1]["name"]).to eq(item2.name)
     expect(items[1]["description"]).to eq(item2.description)
-    expect(items[1]["unit_price"]).to eq(item2.unit_price)
+    expect(items[1]["unit_price"]).to eq(sprintf "%.2f", (item2.unit_price.to_f/100))
     expect(items[1]["merchant_id"]).to eq(item2.merchant_id)
   end
 end

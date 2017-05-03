@@ -12,6 +12,7 @@ module Api
 
         private
         def invoice_item_params
+          params[:unit_price] = (params[:unit_price].to_f*100).round if params[:unit_price]
           params.permit(:id, :item_id, :invoice_id, :unit_price, :quantity, :created_at, :updated_at)
         end
       end
