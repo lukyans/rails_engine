@@ -46,9 +46,24 @@ task :import => [:environment] do
     puts "Creating customer from row #{count} with name #{customer[:first_name]} "
   end
 
-  transactions = (CSV.open'db/csv/transactions.csv', headers: true, header_converters: :symbol)
+  invoices = (CSV.open'db/csv/invoices.csv', headers: true, header_converters: :symbol)
   count = 1
 
+  invoices.each do |invoice|
+    count += 1
+    Invoice.create!(customer_id: invoice[:customer_id],
+                    merchant_id: invoice[:merchant_id],
+                    status: invoice[:status],
+                    created_at: invoice[:created_at],
+                    updated_at: invoice[:updated_at]
+                    )
+
+    puts "Creating invoice from row #{count}"
+  end
+
+  transactions = (CSV.open'db/csv/transactions.csv', headers: true, header_converters: :symbol)
+  count = 1
+  
   transactions.each do |transaction|
     count +=1
     Transaction.create!(invoice_id: transaction[:invoice_id],
@@ -76,21 +91,4 @@ task :import => [:environment] do
                         )
     puts "creating invoice_item from row #{count} with result #{invoice_item[:quantity]} "
   end
-    
-
-  invoices = (CSV.open'db/csv/invoices.csv', headers: true, header_converters: :symbol)
-  count = 1
-
-  invoices.each do |invoice|
-    count += 1
-    Invoice.create!(customer_id: invoice[:customer_id],
-                    merchant_id: invoice[:merchant_id],
-                    status: invoice[:status],
-                    created_at: invoice[:created_at],
-                    updated_at: invoice[:updated_at]
-                    )
-
-    puts "Creating invoice from row #{count}"
-  end
-
 end
