@@ -1,9 +1,9 @@
 module Api
   module V1
-    module Merchants
+    module Items
       class RandomController < ApplicationController
         def show
-          render json: Merchant.order("RANDOM()").first
+          render json: Item.order("RANDOM()").first
         end
       end
     end
