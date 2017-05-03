@@ -18,8 +18,8 @@ describe "Merchant API" do
     expect(merchants[1]["name"]).to eq(merchant2.name)
 
     expect(merchants[2]["id"]).to eq(merchant3.id)
-    expect(merchants[2]["name"]).to eq(merchant3.name)  
-  end  
+    expect(merchants[2]["name"]).to eq(merchant3.name)
+  end
 
   it "can get one merchant by its id" do
     id = create(:merchant).id
@@ -80,7 +80,7 @@ describe "Merchant API" do
    get "/api/v1/merchants/find?updated_at=#{merchant.updated_at}"
 
    parsed_merchant = JSON.parse(response.body)
-  
+ 
    expect(response).to be_success
    expect(parsed_merchant["id"]).to eq(merchant.id)
    expect(parsed_merchant["name"]).to eq(merchant.name)
