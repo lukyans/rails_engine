@@ -10,13 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20170502215735) do
-
+ActiveRecord::Schema.define(version: 20170503154247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "customers", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "invoice_items", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "quantity"
+    t.integer  "unit_price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["item_id"], name: "index_invoice_items_on_item_id", using: :btree
+  end
 
   create_table "items", force: :cascade do |t|
     t.text     "name"
@@ -26,13 +39,6 @@ ActiveRecord::Schema.define(version: 20170502215735) do
     t.datetime "updated_at"
     t.integer  "merchant_id"
     t.index ["merchant_id"], name: "index_items_on_merchant_id", using: :btree
-
-  create_table "customers", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-
   end
 
   create_table "merchants", force: :cascade do |t|
@@ -41,9 +47,6 @@ ActiveRecord::Schema.define(version: 20170502215735) do
     t.datetime "updated_at"
   end
 
-
-  add_foreign_key "items", "merchants"
-
   create_table "transactions", force: :cascade do |t|
     t.integer  "credit_card_number"
     t.datetime "credit_card_expiration_date"
@@ -51,4 +54,7 @@ ActiveRecord::Schema.define(version: 20170502215735) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_foreign_key "invoice_items", "items"
+  add_foreign_key "items", "merchants"
 end

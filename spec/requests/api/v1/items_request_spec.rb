@@ -27,3 +27,4 @@ describe "Item API" do
     expect(items[1]["merchant_id"]).to eq(item2.merchant_id)
   end
 end
+

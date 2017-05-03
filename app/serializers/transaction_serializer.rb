@@ -1,3 +1,3 @@
 class TransactionSerializer < ActiveModel::Serializer
-  attributes :id, :credit_card_number, :result#invoice_id
+  attributes :id, :invoice_id, :credit_card_number, :result
 end
