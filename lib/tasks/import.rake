@@ -5,7 +5,6 @@ task :import => [:environment] do
   DatabaseCleaner.strategy = :truncation
   DatabaseCleaner.clean
 
-  
 
   merchants = (CSV.open'db/csv/merchants.csv', headers: true, header_converters: :symbol)
   count = 1
@@ -44,12 +43,12 @@ task :import => [:environment] do
                     created_at: customer[:created_at],
                     updated_at: customer[:updated_at]
                     )
-    puts "creating customer from row #{count} with name #{customer[:first_name]} "
+    puts "Creating customer from row #{count} with name #{customer[:first_name]} "
   end
 
   transactions = (CSV.open'db/csv/transactions.csv', headers: true, header_converters: :symbol)
   count = 1
-  
+
   transactions.each do |transaction|
     count +=1
     Transaction.create!(#invoice_id: transaction[:invoice_id],
@@ -59,9 +58,22 @@ task :import => [:environment] do
                     created_at: transaction[:created_at],
                     updated_at: transaction[:updated_at]
                     )
-    puts "creating transation from row #{count} with result #{transaction[:reult]} "
+    puts "Creating transaction from row #{count} with result #{transaction[:reult]} "
   end
-  
 
+  invoices = (CSV.open'db/csv/invoices.csv', headers: true, header_converters: :symbol)
+  count = 1
+
+  invoices.each do |invoice|
+    count += 1
+    Invoice.create!(customer_id: invoice[:customer_id],
+                    merchant_id: invoice[:merchant_id],
+                    status: invoice[:status],
+                    created_at: invoice[:created_at],
+                    updated_at: invoice[:updated_at]
+                    )
+
+    puts "Creating invoice from row #{count}"
+  end
 
 end
