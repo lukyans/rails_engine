@@ -67,7 +67,7 @@ task :import => [:environment] do
   transactions.each do |transaction|
     count +=1
     Transaction.create!(invoice_id: transaction[:invoice_id],
-                    credit_card_number: transaction[:credt_card_number],
+                    credit_card_number: transaction[:credit_card_number],
                     credit_card_expiration_date: transaction[:credt_card_exipration_date],
                     result: transaction[:result],
                     created_at: transaction[:created_at],
