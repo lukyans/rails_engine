@@ -18,4 +18,8 @@ class Merchant < ApplicationRecord
   def self.favorite_customer(id)
     Merchant.find(id.to_i).customers.joins(:transactions).merge(Transaction.successful).group("customers.id").order("count(Transactions.result)desc").take
   end
+
+  def self.most_revenue(quantity)
+    Merchant.joins(:invoice_items).merge(InvoiceItem.successful).group("id").order("sum(invoice_items.quantity * invoice_items.unit_price)desc").take(quantity)
+  end
 end
