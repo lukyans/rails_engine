@@ -6,10 +6,10 @@ class Item < ApplicationRecord
   has_many :invoices, through: :invoice_items
 
   def self.most_revenue(quantity)
-    Item.joins(invoice_items: :transactions).merge(Transaction.successful).group("id").order("sum(invoice_items.unit_price * invoice_items.quantity) desc").limit(quantity)
+    Item.joins(invoice_items: :transactions).merge(Transaction.successful).group("id").order("sum(invoice_items.unit_price * invoice_items.quantity) desc").take(quantity)
   end
 
   def self.most_items(quantity)
-    Item.joins(invoice_items: :transactions).merge(Transaction.successful).group("id").order("sum(invoice_items.quantity) desc").limit(quantity)
+    Item.joins(invoice_items: :transactions).merge(Transaction.successful).group("id").order("sum(invoice_items.quantity) desc").take(quantity)
   end
 end
