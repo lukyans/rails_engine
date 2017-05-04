@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :merchants, only: [:index, :show] do
         get 'items', to: "merchants/items#index"
         get 'invoices', to: "merchants/invoices#index"
+        get 'revenue', to: "merchants/revenue#show"
       end
 
       namespace :items do
@@ -71,6 +72,7 @@ Rails.application.routes.draw do
         get 'merchant', to: "invoices/merchant#show"
       end
 
+      
     end
   end
 end
