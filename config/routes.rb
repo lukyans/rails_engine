@@ -38,7 +38,9 @@ Rails.application.routes.draw do
         get 'random', to: "random#show"
       end
 
-      resources :transactions, only: [:index, :show]
+      resources :transactions, only: [:index, :show] do
+        get 'invoice', to: "transactions/invoice#show"  
+      end
 
 
       namespace :invoice_items do
@@ -47,7 +49,10 @@ Rails.application.routes.draw do
         get 'random', to: "random#show"
       end
 
-      resources :invoice_items, only: [:index, :show]
+      resources :invoice_items, only: [:index, :show] do
+        get 'invoice', to: 'invoice_items/invoice#show'
+        get 'item', to: 'invoice_items/item#show'
+      end
 
       namespace :invoices do
         get 'find', to: "find#show"

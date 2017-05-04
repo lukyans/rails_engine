@@ -3,7 +3,6 @@ module Api
     module Items
       class FindController < ApplicationController
         def show
-          # ((item_params["unit_price"].to_f)*100).to_i
           render json: Item.order(id: :asc).find_by(item_params) 
         end
 
