@@ -22,4 +22,8 @@ class Merchant < ApplicationRecord
   def self.most_revenue(quantity)
     Merchant.joins(:invoice_items).merge(InvoiceItem.successful).group("id").order("sum(invoice_items.quantity * invoice_items.unit_price)desc").take(quantity)
   end
+
+  def self.most_items(quantity)
+    Merchant.joins(:invoice_items).merge(InvoiceItem.successful).group("id").order("sum(invoice_items.quantity)desc").take(quantity)
+  end
 end
