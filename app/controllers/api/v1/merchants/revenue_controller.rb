@@ -3,7 +3,11 @@ module Api
     module Merchants
       class RevenueController < ApplicationController
         def show
-          render json: {"revenue": price_format(Merchant.revenue(params[:merchant_id],params[:date]))}
+          if params[:merchant_id].nil?
+            render json: {"total_revenue": price_format(Merchant.revenue(params[:merchant_id],params[:date]))}
+          else
+            render json: {"revenue": price_format(Merchant.revenue(params[:merchant_id],params[:date]))}
+          end
         end
       end
     end
