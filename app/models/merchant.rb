@@ -42,9 +42,8 @@ class Merchant < ApplicationRecord
                           INNER JOIN merchants ON invoices.merchant_id = merchants.id 
                           WHERE merchants.id = #{id.to_i} and transactions.result = 'success' 
                           GROUP BY customers.id")
-
+  end
   def self.most_items(quantity)
     Merchant.joins(:invoice_items).merge(InvoiceItem.successful).group("id").order("sum(invoice_items.quantity)desc").take(quantity)
-
   end
 end
