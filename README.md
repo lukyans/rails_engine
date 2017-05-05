@@ -4,9 +4,9 @@
 
 ## Introduction:
 
-This is a paired-project on learning how to build an API. The data analysis uses sales data. Format: JSON API endpoints. 
+Rails Engine emphasizes designing and building an API with consistent and coherent response structures, as well as serializers to format JSON data. This project makes use of ActiveRecord relationships and queries, including some advanced query functionality such as multiple joins operations and named scopes within merge methods on a joined model.
 
-Rails Engine Project Spec Requirements: [here](http://backend.turing.io/module3/projects/rails_engine)
+Project Spec: [here](http://backend.turing.io/module3/projects/rails_engine)
 
 ### Collaborators
 
