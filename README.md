@@ -127,4 +127,4 @@ Navigate to these urls starting with `localhost:3000`
 
 /api/v1/customers/:id/favorite_merchant
 
-##Enjoy!
+## Enjoy!
