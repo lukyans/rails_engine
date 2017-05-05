@@ -25,7 +25,26 @@ class Merchant < ApplicationRecord
     Merchant.joins(:invoice_items).merge(InvoiceItem.successful).group("id").order("sum(invoice_items.quantity * invoice_items.unit_price)desc").take(quantity)
   end
 
+
+  def self.customers_with_pending_invoices(id)
+    Customer.find_by_sql("SELECT customers.* 
+                          FROM customers 
+                          INNER JOIN invoices ON invoices.customer_id = customers.id 
+                          INNER JOIN transactions ON invoices.id = transactions.invoice_id 
+                          INNER JOIN merchants ON invoices.merchant_id = merchants.id 
+                          WHERE merchants.id = #{id.to_i} and transactions.result = 'failed' 
+                          GROUP BY customers.id 
+                          EXCEPT
+                          SELECT customers.* 
+                          FROM customers 
+                          INNER JOIN invoices ON invoices.customer_id = customers.id 
+                          INNER JOIN transactions ON invoices.id = transactions.invoice_id 
+                          INNER JOIN merchants ON invoices.merchant_id = merchants.id 
+                          WHERE merchants.id = #{id.to_i} and transactions.result = 'success' 
+                          GROUP BY customers.id")
+
   def self.most_items(quantity)
     Merchant.joins(:invoice_items).merge(InvoiceItem.successful).group("id").order("sum(invoice_items.quantity)desc").take(quantity)
+
   end
 end
