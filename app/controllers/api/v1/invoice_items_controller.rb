@@ -7,8 +7,7 @@ module Api
 
       def show
         render json: InvoiceItem.find(params[:id])
-      end
-      
+      end  
     end
   end
 end
