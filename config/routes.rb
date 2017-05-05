@@ -14,7 +14,7 @@ Rails.application.routes.draw do
         get 'invoices', to: "merchants/invoices#index"
         get 'revenue', to: "merchants/revenue#show"
         get 'favorite_customer', to: "merchants/favorite_customer#show"
-        # get 'customers_with_pending_invoices', to: "merchants/customers_with_pending_invoices#show"
+        get 'customers_with_pending_invoices', to: "merchants/customers_with_pending_invoices#show"
       end
 
       namespace :items do
